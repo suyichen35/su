@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this is our test!</title>
+    <style>
+        body {
+            background-image: url("./img/水坝.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        #name1 {
+            width: 60%;
+            height: 400px;
+            background-color: rgb(237, 251, 255);
+            position: absolute;
+            /* 绝对定位 */
+            left: 50%;
+            /*将元素的左边缘从其包含块的左边缘向右移动50% */
+            top: 50%;
+            transform: translate(-50%, -50%);
+            margin-top: 20px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            text-align: center;
+            border-radius: 10px;
+            /* 添加圆角 */
+        }
+
+        #table1 {
+            position: absolute;
+            top: 30%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        #table2 {
+            position: absolute;
+            bottom: 15%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        #table3 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        #png1 {
+            padding: 10px;
+            border-radius: 20%;
+        }
+
+        td {
+            text-align: justify;
+            -moz-text-align-last: justify;
+            text-align-last: justify;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- $link = mysqli_connect('localhost', 'root', 'root');
+    $sql = "CREATE DATABASE student"; -->
+
+    <div id="name1">
+        <form action="./YesOrNo.html" method="post">
+            <img id="png1" src="./img/头像.jpg" width="100px" height="100px">
+            <input type="hidden" name="sou" value="1">
+            <table id="table1">
+                <tr>
+                    <td>用户名</td>
+                    <td>：</td>
+                    <td><input type="text" name="name"><br></td>
+                </tr>
+                <tr>
+                    <td>学号</td>
+                    <td>：</td>
+                    <td><input type="number" name="num1"><br></td>
+                </tr>
+                <tr>
+                    <td>年龄</td>
+                    <td>：</td>
+                    <td><input type="number" name="num2"><br></td>
+                </tr>
+                <tr>
+                    <td>性别</td>
+                    <td>：</td>
+                    <td>
+                        <input type="radio" name="sex" value="男" required>男
+                        <input type="radio" name="sex" value="女" required>女<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>班级</td>
+                    <td>：</td>
+                    <td><select name="class">
+                            <option value="计专1班">计专1班</option>
+                            <option value="计专2班">计专2班</option>
+                            <option value="计专3班">计专3班</option>
+                    </td>
+                    <td></select><br></td>
+                </tr>
+            </table>
+            <table id="table2">
+                <tr>
+                    <td>
+                        <a href="./YesOrNo.html"><input type="image" src="./img/on.png" width="100px"></a>
+                        <a href="./YesOrNo.html"><input type="image" src="./img/on.png" width="100px"></a>
+                    </td>
+                </tr>
+            </table>
+            <table id="table3">
+                <tr>
+                    <td>
+                        <a href="./YesOrNo.html">
+                            <input type="image" src="./img/登录.png" width="100px">
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+
+
+
+
+
+
+        </form>
+    </div>
+</body>
+
+</html>
