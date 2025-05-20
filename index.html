@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Dreams</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#EC4899',
+                        accent: '#06B6D4',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+            }
+            .transition-transform-opacity {
+                transition-property: transform, opacity;
+            }
+            .backdrop-blur-sm {
+                backdrop-filter: blur(4px);
+            }
+        }
+    </style>
+    <style>
+        body {
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+        }
+
+        .nav-scrolled {
+            @apply bg-white/90 backdrop-blur-sm shadow-md;
+        }
+
+        .nav-transparent {
+            @apply bg-transparent;
+        }
+
+        .scroll-indicator {
+            height: 3px;
+            background: linear-gradient(90deg, #4F46E5, #EC4899);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 50%, #EC4899 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-light text-dark font-inter">
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    <nav id="mainNav" class="fixed w-full z-40 transition-all duration-300 py-4">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold text-white text-shadow-lg flex items-center space-x-2">
+                    <span class="fa fa-star text-secondary"></span>
+                    <span>@Su YiChen</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-white hover:text-secondary transition-colors font-medium">主页</a>
+                    <!-- <a href="#features" class="text-white hover:text-secondary transition-colors font-medium">特征</a> -->
+                    <a href="#gallery" class="text-white hover:text-secondary transition-colors font-medium">资料库</a>
+                    <a href="#about" class="text-white hover:text-secondary transition-colors font-medium">大约</a>
+                    <a href="#contact" class="text-white hover:text-secondary transition-colors font-medium">联系</a>
+                </div>
+                <button class="md:hidden text-white text-2xl" id="mobileMenuBtn">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu"
+            class="hidden md:hidden bg-white/95 backdrop-blur-sm absolute w-full shadow-lg mt-4 rounded-b-lg">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#home"
+                    class="text-dark hover:text-secondary transition-colors font-medium py-2 border-b border-gray-100">主页</a>
+                <a href="#features"
+                    class="text-dark hover:text-secondary transition-colors font-medium py-2 border-b border-gray-100">特征</a>
+                <a href="#gallery"
+                    class="text-dark hover:text-secondary transition-colors font-medium py-2 border-b border-gray-100">画廊</a>
+                <a href="#about"
+                    class="text-dark hover:text-secondary transition-colors font-medium py-2 border-b border-gray-100">大约</a>
+                <a href="#contact" class="text-dark hover:text-secondary transition-colors font-medium py-2">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
+        <div id="particles-js"></div>
+        <div class="container mx-auto px-4 md:px-8 z-10 text-center">
+            <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold text-white mb-6 leading-tight text-shadow-lg">
+                探索<span class="text-secondary">豆包</span>世界
+            </h1>
+            <p class="text-[clamp(1rem,3vw,1.5rem)] text-white/90 mb-10 max-w-3xl mx-auto text-shadow">
+                粒子系统是一种强大的工具，用于创建动态的视觉效果。
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://u8848.wordpress.com/zhuan/"
+                    class="px-8 py-3 bg-white text-primary rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                    专升本大纲
+                </a>
+                <a href="#gallery"
+                    class="px-8 py-3 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transform hover:-translate-y-1 transition-all duration-300">
+                    查看资料库
+                </a>
+            </div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <a href="#features" class="text-white text-3xl opacity-80 hover:opacity-100 transition-opacity">
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <section id="showcase" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">25年分数线</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">见证专升本系统在地球online中的美感和多功能性。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <h3 class="text-2xl font-semibold mb-4">2025年计算机联考一分一档表</h3>
+                    <!-- <p class="text-gray-600 mb-6">通过与彼此及其环境交互的粒子系统体验逼真的流体动力学。</p> -->
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>各联考专业录取控制分数线</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>华北理工大学轻工学院2025年专升本报考指南</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>近五年专升本各专业分数线</span>
+                        </li>
+                    </ul>
+                    <a href="./html-2025yifenyidangbiao.html"
+                        class="inline-block px-6 py-3 bg-primary text-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                        查看
+                    </a>
+                </div>
+                <div class="relative reveal">
+                    <div
+                        class="aspect-w-16 aspect-h-9 bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
+                        <canvas id="fluidSimulation" class="w-full h-full"></canvas>
+                    </div>
+                    <!-- <div
+                        class="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg animate-float hidden md:block">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                                <i class="fa fa-tint text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">颗粒密度</p>
+                                <p class="text-sm text-gray-500">5000 个颗粒</p>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-20">
+                <div class="order-2 lg:order-1 reveal">
+                    <div class="relative">
+                        <div
+                            class="aspect-w-16 aspect-h-9 bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
+                            <canvas id="particleNetwork" class="w-full h-full"></canvas>
+                        </div>
+                        <!-- <div
+                            class="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg animate-float hidden md:block">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center">
+                                    <i class="fa fa-link text-secondary text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">连接强度</p>
+                                    <p class="text-sm text-gray-500">128 个节点</p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 reveal">
+                    <h3 class="text-2xl font-semibold mb-4">2025年各院校参考投档线</h3>
+                    <!-- <p class="text-gray-600 mb-6">通过美丽的粒子网络可视化来探索复杂的互连系统。</p> -->
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>动态节点连接</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>力导向布局算法</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>交互式节点作</span>
+                        </li>
+                    </ul>
+                    <a href="#"
+                        class="inline-block px-6 py-3 bg-secondary text-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                        查看
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">专升本资料</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">一系列令人惊叹题！题！题！提供灵感。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="group rounded-xl overflow-hidden shadow-lg reveal">
+                    <div class="relative overflow-hidden aspect-square">
+                        <img src="https://picsum.photos/seed/particle1/600/600" alt="Particle Art"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-white text-xl font-semibold mb-2">马哲知识点</h3>
+                                <p class="text-white/80 text-sm">知识快进我的脑子里！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group rounded-xl overflow-hidden shadow-lg reveal">
+                    <div class="relative overflow-hidden aspect-square">
+                        <img src="https://picsum.photos/seed/particle2/600/600" alt="Particle Art"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-white text-xl font-semibold mb-2">中特在知识点</h3>
+                                <p class="text-white/80 text-sm">知识快进我的脑子里！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group rounded-xl overflow-hidden shadow-lg reveal">
+                    <div class="relative overflow-hidden aspect-square">
+                        <img src="https://picsum.photos/seed/particle3/600/600" alt="Particle Art"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-white text-xl font-semibold mb-2">英语知识点</h3>
+                                <p class="text-white/80 text-sm">知识快进我的脑子里！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group rounded-xl overflow-hidden shadow-lg reveal">
+                    <div class="relative overflow-hidden aspect-square">
+                        <img src="https://picsum.photos/seed/particle4/600/600" alt="Particle Art"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-white text-xl font-semibold mb-2">高等数学（一）知识点</h3>
+                                <p class="text-white/80 text-sm">知识快进我的脑子里！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group rounded-xl overflow-hidden shadow-lg reveal">
+                    <div class="relative overflow-hidden aspect-square">
+                        <img src="https://picsum.photos/seed/particle5/600/600" alt="Particle Art"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-white text-xl font-semibold mb-2">近三年真题</h3>
+                                <p class="text-white/80 text-sm">知识快进我的脑子里！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group rounded-xl overflow-hidden shadow-lg reveal">
+                    <div class="relative overflow-hidden aspect-square">
+                        <img src="https://picsum.photos/seed/particle6/600/600" alt="Particle Art"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-white text-xl font-semibold mb-2">T6</h3>
+                                <p class="text-white/80 text-sm">知识快进我的脑子里！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="text-center mt-12">
+                <a href="#"
+                    class="inline-block px-8 py-3 bg-dark text-white rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                    查看所有项目
+                </a>
+            </div> -->
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-6">关于粒子系统</h2>
+                    <p class="text-gray-600 mb-6">粒子系统是计算机图形学中一种强大的技术，用于模拟难以使用传统几何基元建模的复杂现象。</p>
+                    <p class="text-gray-600 mb-6">它们广泛用于视频游戏、动画、科学可视化和网页设计，以创建火焰、烟雾、水、爆炸甚至抽象可视化等效果。</p>
+                    <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="text-4xl font-bold text-primary mb-2">500+</div>
+                            <div class="text-gray-600">粒子效果</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="text-4xl font-bold text-secondary mb-2">15K+</div>
+                            <div class="text-gray-600">满意的用户</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="text-4xl font-bold text-accent mb-2">24/7</div>
+                            <div class="text-gray-600">支持</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="text-4xl font-bold text-dark mb-2">100%</div>
+                            <div class="text-gray-600">开源</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative reveal">
+                    <div class="bg-white p-8 rounded-xl shadow-xl border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-6">粒子性能指标</h3>
+                        <div class="aspect-w-16 aspect-h-9">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute -top-6 -right-6 bg-primary text-white p-4 rounded-lg shadow-lg hidden md:block">
+                        <p class="font-semibold">性能基准</p>
+                        <p class="text-sm">越高越好</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">联系我们</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">有疑问或想了解更多关于粒子系统的信息？联系我们！</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+                <div class="lg:col-span-2 reveal">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-lg h-full">
+                        <h3 class="text-xl font-semibold mb-6">联系信息</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-map-marker text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">位置</h4>
+                                    <p class="text-gray-600">
+                                        宇宙-拉尼亚凯亚超星系团-室女座星系团-本星系群-银河系-猎户臂-古尔德带-本地泡-本星际云-奥尔特云-太阳系-地球-北半球-亚欧大陆-亚洲-中国</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">电子邮件</h4>
+                                    <p class="text-gray-600">call@me.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-phone text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">电话</h4>
+                                    <p class="text-gray-600">+86 111 2222 3333</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-10">
+                            <h4 class="font-medium mb-4">关注我们</h4>
+                            <div class="flex space-x-4">
+                                <a href="#"
+                                    class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-3 reveal">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-semibold mb-6">给我们留言</h3>
+                        <form>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">名字</label>
+                                    <input type="text" id="name"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 transition-all"
+                                        placeholder="您的名字">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">电子邮件</label>
+                                    <input type="email" id="email"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 transition-all"
+                                        placeholder="您的电子邮件">
+                                </div>
+                            </div>
+                            <div class="mb-6">
+                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">主题</label>
+                                <input type="text" id="subject"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 transition-all"
+                                    placeholder="主题">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-2">消息</label>
+                                <textarea id="message" rows="5"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 transition-all"
+                                    placeholder="Your message"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full px-6 py-3 bg-primary text-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                                您的信息
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-6">粒子梦</h3>
+                    <p class="text-gray-400 mb-6">为 Web 创建令人惊叹的粒子效果和交互式可视化效果。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">家</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">特征</a>
+                        </li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-white transition-colors">画廊</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">大约</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">联系</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">资源</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">文档</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">教程</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API参考</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">例子</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">博客</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">通讯</h4>
+                    <p class="text-gray-400 mb-4">订阅我们的时事通讯以获取最新更新。</p>
+                    <form class="flex">
+                        <input type="email" placeholder="您的电子邮件"
+                            class="px-4 py-2 rounded-l-lg w-full focus:outline-none text-dark">
+                        <button type="submit"
+                            class="bg-primary px-4 py-2 rounded-r-lg hover:bg-primary/90 transition-colors">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm">&nbsp;&nbsp;2025 自在飞花轻似梦，无边丝雨细如愁</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">隐私策略</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">服务条款</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Cookie 政策
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js
+        document.addEventListener('DOMContentLoaded', function () {
+            // Navbar scroll effect
+            const nav = document.getElementById('mainNav');
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fa fa-times"></i>';
+                }
+            });
+
+            // Close mobile menu when clicking nav links
+            const navLinks = mobileMenu.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+                });
+            });
+
+            // Scroll effect
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    nav.classList.remove('nav-transparent');
+                    nav.classList.add('nav-scrolled');
+                } else {
+                    nav.classList.remove('nav-scrolled');
+                    nav.classList.add('nav-transparent');
+                }
+
+                // Update scroll indicator
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollIndicator.style.width = scrolled + "%";
+
+                // Reveal animations
+                revealElements();
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Initialize particles.js
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ffffff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            // Initialize fluid simulation canvas
+            const fluidCanvas = document.getElementById('fluidSimulation');
+            const fluidCtx = fluidCanvas.getContext('2d');
+
+            // Make canvas responsive
+            function resizeCanvas() {
+                fluidCanvas.width = fluidCanvas.offsetWidth;
+                fluidCanvas.height = fluidCanvas.offsetHeight;
+
+                if (typeof initFluidSimulation === 'function') {
+                    initFluidSimulation();
+                }
+
+                if (typeof initParticleNetwork === 'function') {
+                    initParticleNetwork();
+                }
+            }
+
+            // Initialize charts
+            function initCharts() {
+                const ctx = document.getElementById('performanceChart').getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Chrome', 'Firefox', 'Safari', 'Edge'],
+                        datasets: [{
+                            label: 'Particles per Second',
+                            data: [15000, 12000, 10000, 13000],
+                            backgroundColor: [
+                                'rgba(79, 70, 229, 0.7)',
+                                'rgba(236, 72, 153, 0.7)',
+                                'rgba(6, 182, 212, 0.7)',
+                                'rgba(30, 41, 59, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(79, 70, 229, 1)',
+                                'rgba(236, 72, 153, 1)',
+                                'rgba(6, 182, 212, 1)',
+                                'rgba(30, 41, 59, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Particles'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Simple fluid simulation
+            let fluidParticles = [];
+            function initFluidSimulation() {
+                fluidParticles = [];
+                for (let i = 0; i < 100; i++) {
+                    fluidParticles.push({
+                        x: Math.random() * fluidCanvas.width,
+                        y: Math.random() * fluidCanvas.height,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: (Math.random() - 0.5) * 2,
+                        size: Math.random() * 3 + 1,
+                        color: `rgba(${Math.floor(Math.random() * 100) + 150}, ${Math.floor(Math.random() * 100) + 150}, 255, 0.8)`
+                    });
+                }
+                animateFluid();
+            }
+
+            function animateFluid() {
+                fluidCtx.clearRect(0, 0, fluidCanvas.width, fluidCanvas.height);
+
+                fluidParticles.forEach(particle => {
+                    // Update position
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+
+                    // Bounce off edges
+                    if (particle.x < 0 || particle.x > fluidCanvas.width) {
+                        particle.vx = -particle.vx;
+                    }
+                    if (particle.y < 0 || particle.y > fluidCanvas.height) {
+                        particle.vy = -particle.vy;
+                    }
+
+                    // Draw particle
+                    fluidCtx.fillStyle = particle.color;
+                    fluidCtx.beginPath();
+                    fluidCtx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    fluidCtx.fill();
+
+                    // Draw trail
+                    fluidCtx.strokeStyle = `${particle.color.replace('0.8', '0.2')}`;
+                    fluidCtx.beginPath();
+                    fluidCtx.moveTo(particle.x, particle.y);
+                    fluidCtx.lineTo(particle.x - particle.vx * 3, particle.y - particle.vy * 3);
+                    fluidCtx.stroke();
+                });
+
+                requestAnimationFrame(animateFluid);
+            }
+
+            // Simple particle network
+            const networkCanvas = document.getElementById('particleNetwork');
+            const networkCtx = networkCanvas.getContext('2d');
+            let networkParticles = [];
+
+            function initParticleNetwork() {
+                networkParticles = [];
+                for (let i = 0; i < 50; i++) {
+                    networkParticles.push({
+                        x: Math.random() * networkCanvas.width,
+                        y: Math.random() * networkCanvas.height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        size: Math.random() * 2 + 1,
+                        color: `rgba(236, 72, 153, ${Math.random() * 0.5 + 0.5})`
+                    });
+                }
+                animateNetwork();
+            }
+
+            function animateNetwork() {
+                networkCtx.clearRect(0, 0, networkCanvas.width, networkCanvas.height);
+
+                networkParticles.forEach(particle => {
+                    // Update position
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+
+                    // Bounce off edges
+                    if (particle.x < 0 || particle.x > networkCanvas.width) {
+                        particle.vx = -particle.vx;
+                    }
+                    if (particle.y < 0 || particle.y > networkCanvas.height) {
+                        particle.vy = -particle.vy;
+                    }
+
+                    // Draw particle
+                    networkCtx.fillStyle = particle.color;
+                    networkCtx.beginPath();
+                    networkCtx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    networkCtx.fill();
+                });
+
+                // Draw connections
+                networkParticles.forEach(particle => {
+                    networkParticles.forEach(otherParticle => {
+                        const dx = particle.x - otherParticle.x;
+                        const dy = particle.y - otherParticle.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 100) {
+                            const opacity = 1 - distance / 100;
+                            networkCtx.strokeStyle = `rgba(236, 72, 153, ${opacity * 0.3})`;
+                            networkCtx.lineWidth = 1;
+                            networkCtx.beginPath();
+                            networkCtx.moveTo(particle.x, particle.y);
+                            networkCtx.lineTo(otherParticle.x, otherParticle.y);
+                            networkCtx.stroke();
+                        }
+                    });
+                });
+
+                requestAnimationFrame(animateNetwork);
+            }
+
+            // Reveal animations
+            function revealElements() {
+                const reveals = document.querySelectorAll('.reveal');
+
+                for (let i = 0; i < reveals.length; i++) {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveals[i].getBoundingClientRect().top;
+                    const elementVisible = 150;
+
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add('active');
+                    }
+                }
+            }
+
+            // Initialize everything
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            initCharts();
+            revealElements();
+        });
+    </script>
+</body>
+
+</html>
