@@ -69,15 +69,68 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* 透明菜单栏样式 */
+        .transparent-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255,00); 
+            padding: 0.5rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .back-btn-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .back-btn-inner:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .back-btn-inner i {
+            font-size: 18px;
+        }
     </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- 透明菜单栏 -->
+    <nav class="transparent-nav">
+        <a href="https://xiaomis7.github.io/su/" class="back-btn">
+            <button class="back-btn-inner">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </a>
+    </nav>
     <div class="div1">
-    <h1>专升本相关指南</h1>
-    <a href="https://mp.weixin.qq.com/s/nw3Euwcp0QwMQTuS3NtAuw" class="btn">华北理工大学轻工学院2025年专升本报考指南</a>
-    <a href="https://u8848.wordpress.com/drhe56355/" class="btn">2024河北省普通专升本一志愿平行投档情况统计</a>
-    <a href="https://u8848.wordpress.com/12412eqwda/" class="btn">2025年河北省普通专升本考试普通考生录取控制分数线</a>
-    <a href="https://u8848.wordpress.com/5-2year/" class="btn">近五年专升本各专业分数线</a>
+        <h1>专升本相关指南</h1>
+        <a href="https://mp.weixin.qq.com/s/nw3Euwcp0QwMQTuS3NtAuw" class="btn">华北理工大学轻工学院2025年专升本报考指南</a>
+        <a href="https://u8848.wordpress.com/drhe56355/" class="btn">2024河北省普通专升本一志愿平行投档情况统计</a>
+        <a href="https://u8848.wordpress.com/12412eqwda/" class="btn">2025年河北省普通专升本考试普通考生录取控制分数线</a>
+        <a href="https://u8848.wordpress.com/e4y34gdr4/" class="btn">近五年专升本各专业分数线</a>
     </div>
 </body>
 </html>
