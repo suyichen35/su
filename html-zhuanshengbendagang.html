@@ -5,11 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>河北专升本科目及分数详情</title>
-    <!-- 移除原有的 <style> 标签 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #0056b3;
+            --white: #fff;
+        }
+
+        .transparent-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .back-btn-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .back-btn-inner:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .back-btn-inner i {
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body
-    style="font-family: '微软雅黑', sans-serif; max-width: 1200px; margin: 30px auto; padding: 20px; line-height: 1.6; color: #333; background-image: url('https://u8848.wordpress.com/wp-content/uploads/2025/05/958fc680abac40e6986b6369b75cedcd-1.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+    style="font-family: '微软雅黑', sans-serif; max-width: 1200px; margin: 30px auto; padding: 20px; line-height: 1.6; color: #333; background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <!-- 透明菜单栏 -->
+    <nav class="transparent-nav">
+        <a href="https://xiaomis7.github.io/su/" class="back-btn">
+            <button class="back-btn-inner">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </a>
+    </nav>
     <h1
         style="color: #ffffff; text-align: center; margin-bottom: 30px; border-bottom: 3px solid #ffffff; padding-bottom: 10px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
         河北专升本详情</h1>
