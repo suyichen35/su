@@ -14,7 +14,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('./jpg-1.jpg');
+            /* 默认显示电脑端背景图 */
+            background-image: url('https://u8848.wordpress.com/wp-content/uploads/2025/05/958fc680abac40e6986b6369b75cedcd-1.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -26,6 +27,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+        }
+
+        /* 媒体查询，当屏幕宽度小于等于 768px 时，显示手机端背景图 */
+        @media (max-width: 768px) {
+            body {
+                background-image: url('https://haowallpaper.com/link/common/file/getCroppingImg/5daf14db79a4176a7875155879eaf76d');
+            }
         }
 
         .btn {
@@ -127,10 +135,10 @@
     </nav>
     <div class="div1">
         <h1>专升本相关指南</h1>
+        <a href="https://mp.weixin.qq.com/s/nw3Euwcp0QwMQTuS3NtAuw" class="btn">华北理工大学轻工学院2025年专升本报考指南</a>
+        <a href="https://u8848.wordpress.com/drhe56355/" class="btn">2024河北省普通专升本一志愿平行投档情况统计</a>
         <a href="https://u8848.wordpress.com/12412eqwda/" class="btn">2025年河北省普通专升本考试普通考生录取控制分数线</a>
         <a href="https://u8848.wordpress.com/e4y34gdr4/" class="btn">近五年专升本各专业分数线</a>
-        <a href="https://u8848.wordpress.com/drhe56355/" class="btn">2024河北省普通专升本一志愿平行投档情况统计</a>
-        <a href="https://mp.weixin.qq.com/s/nw3Euwcp0QwMQTuS3NtAuw" class="btn">华北理工大学轻工学院2025年专升本报考指南</a>
     </div>
 </body>
 </html>
