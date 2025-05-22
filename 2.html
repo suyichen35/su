@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>探索中国特色社会主义</title>
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .top-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* 状态栏背景色 */
+            background-color: #8e241100;
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+        }
+
+        .top-menu button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .top-menu button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .content {
+            padding-top: 80px;
+            /* div上下边距 */
+            /* min-height: 100vh; */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 80px 20px 20px;
+            justify-content: space-evenly;
+            /* 所有间距平均分配 */
+        }
+
+        .content div {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 160px;
+            /* 固定宽度 */
+            height: 240px;
+            /* 固定高度 */
+            box-sizing: border-box;
+            /* 包含内边距和边框 */
+        }
+
+        .content div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .cover {
+            display: flex;
+            flex-direction: column;
+            /* 修改为将内容排列到容器底部 */
+            justify-content: flex-end;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            /* 添加淡入动画 */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .cover::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 默认显示电脑端背景图 */
+            background: url('./zhongte-1.png') center/cover no-repeat;
+            opacity: 0.9;
+        }
+
+        /* 媒体查询，当屏幕宽度小于等于 768px 时，显示手机端背景图 */
+        @media (max-width: 768px) {
+            .cover::before {
+                background: url('./zhongte-2.png') center/cover no-repeat;
+            }
+        }
+
+        .cover h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            /* 添加模糊描边和阴影效果 */
+            text-shadow:
+                0 0 10px rgba(0, 0, 0, 0.8),
+                /* 白色模糊描边 */
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4),
+                0 5px 15px rgba(0, 0, 0, 0.3);
+            /* 黑色阴影 */
+            z-index: 1;
+            animation: slideDown 1s ease-out 0.5s both;
+            /* 添加标题下滑动画 */
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cover p {
+            font-size: 28px;
+            margin-bottom: 40px;
+            z-index: 1;
+            animation: slideUp 1s ease-out 0.8s both;
+            /* 添加段落上滑动画 */
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cover button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        .cover button:hover {
+            background-color: #36afff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .content div h3 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .content div p {
+            color: #000000;
+            font-size: 16px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .cover-content-bg {
+            /* 半透明深色背景 */
+            /* background-color: rgba(255, 255, 255); */
+            padding: 30px 50px;
+            /* 内边距 */
+            border-radius: 15px;
+            /* 圆角 */
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 阴影 */
+            z-index: 1;
+            /* 确保在背景之上 */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 封面页 -->
+    <div class="cover">
+        <div class="cover-content-bg">
+            <!-- 修改按钮跳转目标为 mazhe1 -->
+            <button onclick="scrollToDiv('mazhe1')"><i class="fas fa-arrow-down"></i>开始探索中国特色社会主义</button><br><br><br>
+        </div>
+    </div>
+    <!-- 置顶菜单 -->
+    <!-- <div class="top-menu">
+        调用 scrollToDiv 函数，跳转到 mazhe1
+        <button onclick="scrollToDiv('mazhe1')">答题总结</button>
+        调用 scrollToDiv 函数，跳转到 mazhe2
+        <button onclick="scrollToDiv('mazhe2')">知识点总结</button>
+    </div> -->
+    <div id="fengmian">
+        <!-- 此处可添加内容 -->
+    </div>
+    <!-- 内容区域 -->
+    <div class="content" id="mazhe1">
+        <!-- 确保 h1 单独占一行 -->
+        <!-- <h1 style="text-align: center; width: 100%;">马哲精讲知识点笔记总结</h1> -->
+        <!-- <h7 style="text-align: center; width: 100%;">探索马克思主义哲学</h7> -->
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0c50e962d6f0f39fd66a0b86a_31285b30-9fa6-4224-8edb-ec7a6fd078e9&officeType=pdf&tdsourcetag=s_weiyun_file
+">
+            <div id="1">
+                <img src="https://u8848.wordpress.com/wp-content/uploads/2025/05/1747561155892.jpg" alt="工具1">
+                <!-- <h3>工具1</h3> -->
+                <p>26届精讲班-中特期中测-答案</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0c50e962d6f0f39fd66a0b86a_9b3d567d-ceda-41dc-ade5-63cbdd70bea7&officeType=pdf&tdsourcetag=s_weiyun_file
+">
+            <div id="2">
+                <img src="https://u8848.wordpress.com/wp-content/uploads/2025/05/1747561155892.jpg" alt="工具2">
+
+                <!-- <h3>工具1</h3> -->
+                <p>习思想导论、第一章、第二章知识点总结</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0c50e962d6f0f39fd66a0b86a_0b006fb2-86fe-4652-b136-610d22c3a70a&officeType=docx&tdsourcetag=s_weiyun_file
+">
+            <div id="3">
+                <img src="https://u8848.wordpress.com/wp-content/uploads/2025/05/1747561155892.jpg" alt="工具3">
+                <!-- <h3>工具1</h3> -->
+                <p>习思想三、四、五、六1知识总结</p>
+            </div>
+        </a>
+        <!-- ... 其他工具区块保持类似结构 ... -->
+    </div>
+    <script>
+        function scrollToDiv(elementId) {
+            const targetDiv = document.getElementById(elementId);
+            if (targetDiv) {
+                targetDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+
+</html>
