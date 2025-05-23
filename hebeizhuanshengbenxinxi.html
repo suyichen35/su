@@ -14,11 +14,12 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* 默认显示电脑端背景图 */
+            /* 默认显示电脑端背景图，设置背景固定 */
             background-image: url('./hbzsbxx-1.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            background-attachment: fixed; /* 设置背景固定 */
             color: var(--text-color);
             margin: 0;
             padding: 2rem;
@@ -33,6 +34,7 @@
         @media (max-width: 768px) {
             body {
                 background-image: url('./hbzsbxx-2.jpg');
+                background-attachment: fixed; /* 设置背景固定 */
             }
         }
 
