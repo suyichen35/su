@@ -12,7 +12,16 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* 默认显示电脑端背景图，设置背景固定 */
+            background: url('./zhongte-1.png') center/cover no-repeat fixed;
             background-color: #f5f5f5;
+        }
+
+        /* 媒体查询，当屏幕宽度小于等于 768px 时，显示手机端背景图 */
+        @media (max-width: 768px) {
+            body {
+                background: url('./zhongte-2.png') center/cover no-repeat fixed;
+            }
         }
 
         .top-menu {
@@ -97,6 +106,11 @@
             /* 添加淡入动画 */
         }
 
+        /* 移除 .cover::before 的背景设置 */
+        .cover::before {
+            content: none;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -104,25 +118,6 @@
 
             to {
                 opacity: 1;
-            }
-        }
-
-        .cover::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* 默认显示电脑端背景图 */
-            background: url('./zhongte-1.png') center/cover no-repeat;
-            opacity: 0.9;
-        }
-
-        /* 媒体查询，当屏幕宽度小于等于 768px 时，显示手机端背景图 */
-        @media (max-width: 768px) {
-            .cover::before {
-                background: url('./zhongte-2.png') center/cover no-repeat;
             }
         }
 
@@ -198,7 +193,7 @@
             height: 120px;
             object-fit: cover;
             border-radius: 10px;
-            /* margin-bottom: 15px; */
+            margin-bottom: 15px;
         }
 
         .content div h3 {
@@ -227,6 +222,10 @@
             z-index: 1;
             /* 确保在背景之上 */
         }
+        .hh1{
+            background-color: white; /* 添加白色背景 */
+            border-radius: 50px;
+        }
     </style>
 </head>
 
@@ -251,8 +250,7 @@
     <!-- 内容区域 -->
     <div class="content" id="mazhe1">
         <!-- 确保 h1 单独占一行 -->
-        <!-- <h1 style="text-align: center; width: 100%;">马哲精讲知识点笔记总结</h1> -->
-        <!-- <h7 style="text-align: center; width: 100%;">探索马克思主义哲学</h7> -->
+        <h1 class="hh1" style="text-align: center; width: 100%;">马哲精讲知识点笔记总结</h1>
         <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0c50e962d6f0f39fd66a0b86a_31285b30-9fa6-4224-8edb-ec7a6fd078e9&officeType=pdf&tdsourcetag=s_weiyun_file
 ">
             <div id="1">
