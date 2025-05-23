@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>探索高等数学（一）</title>
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* 默认显示电脑端背景图，设置背景固定 */
+            background: url('./shuxue-1.jpg') center/cover no-repeat fixed;
+            /* 移除原来的背景色 */
+            /* background-color: #f5f5f5; */ 
+        }
+
+        /* 移除 cover 伪元素的背景设置 */
+        /* .cover::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            默认显示电脑端背景图 
+            background: url('./shuxue-1.jpg') center/cover no-repeat;
+            opacity: 0.9;
+        } */
+
+        /* 移除媒体查询中 cover 伪元素的背景设置 */
+        /* @media (max-width: 768px) {
+            .cover::before {
+                background: url('./shuxue-2.jpg') center/cover no-repeat;
+            }
+        } */
+
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            /* 添加淡入动画 */
+        }
+
+        .top-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* 状态栏背景色 */
+            background-color: #8e241100;
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+        }
+
+        .top-menu button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .top-menu button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .content {
+            padding-top: 80px;
+            /* div上下边距 */
+            /* min-height: 100vh; */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 80px 20px 20px;
+            justify-content: space-evenly;
+            /* 所有间距平均分配 */
+        }
+
+        .content div {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            /* 固定宽度 */
+            width: 160px;
+            /* 固定高度 */
+            height: 250px;
+            /* 包含内边距和边框 */
+            box-sizing: border-box;
+        }
+
+        .content div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .cover {
+            display: flex;
+            flex-direction: column;
+            /* 修改为将内容排列到容器底部 */
+            justify-content: flex-end;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            /* 添加淡入动画 */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .cover::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 默认显示电脑端背景图 */
+            /* background: url('./shuxue-1.jpg') center/cover no-repeat; */
+            opacity: 0.9;
+        }
+
+        /* 媒体查询，当屏幕宽度小于等于 768px 时，显示手机端背景图 */
+        @media (max-width: 768px) {
+            .cover::before {
+                /* background: url('./shuxue-2.jpg') center/cover no-repeat; */
+            }
+        }
+
+        .cover h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            /* 添加模糊描边和阴影效果 */
+            text-shadow:
+                0 0 10px rgba(0, 0, 0, 0.8),
+                /* 白色模糊描边 */
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4),
+                0 5px 15px rgba(0, 0, 0, 0.3);
+            /* 黑色阴影 */
+            z-index: 1;
+            animation: slideDown 1s ease-out 0.5s both;
+            /* 添加标题下滑动画 */
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cover p {
+            font-size: 28px;
+            margin-bottom: 40px;
+            z-index: 1;
+            animation: slideUp 1s ease-out 0.8s both;
+            /* 添加段落上滑动画 */
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cover button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        .cover button:hover {
+            background-color: #36afff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            /* margin-bottom: 15px; */
+        }
+
+        .content div h3 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .content div p {
+            color: #000000;
+            font-size: 16px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .cover-content-bg {
+            /* 半透明深色背景 */
+            /* background-color: rgba(255, 255, 255); */
+            padding: 30px 50px;
+            /* 内边距 */
+            border-radius: 15px;
+            /* 圆角 */
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 阴影 */
+            z-index: 1;
+            /* 确保在背景之上 */
+        }
+        .hh1{
+            background-color: white; /* 添加白色背景 */
+            border-radius: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 封面页 -->
+    <div class="cover">
+        <div class="cover-content-bg">
+            <!-- 修改按钮跳转目标为 mazhe1 -->
+            <button onclick="scrollToDiv('shuxue1')"><i class="fas fa-arrow-down"></i>开始探索高等数学（一）</button><br><br><br>
+        </div>
+    </div>
+    <!-- 置顶菜单 -->
+    <div class="top-menu">
+        <!-- 调用 scrollToDiv 函数，跳转到 shuxue1 -->
+        <button onclick="scrollToDiv('shuxue1')">26精讲</button>
+        <button onclick="scrollToDiv('shuxue2')">知识胶囊</button>
+    </div>
+    <div id="fengmian">
+        <!-- 此处可添加内容 -->
+    </div>
+    <!-- 内容区域 -->
+    <div class="content" id="shuxue1">
+        <!-- 确保 h1 单独占一行 -->
+        <h1 class="hh1" style="text-align: center; width: 100%;">26精讲</h1>
+        <!-- <h7 style="text-align: center; width: 100%;">探索马克思主义哲学</h7> -->
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_73c0b7ca-aa33-4cd6-83aa-407ac3ed843f&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="1">
+                <img src="./NO-1.jpg" alt="工具1">
+                <p>26届精讲-数学考点通关必刷好题-答案</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_c3b99539-746e-42b7-88fe-4845671e989b&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="2">
+                <img src="./NO-1.jpg" alt="工具2">
+                <p>26精讲第一天1（六类基本初等函数）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_c2d2046f-9a26-48f8-9d6a-942a76227b38&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="3">
+                <img src="./NO-1.jpg" alt="工具3">
+                <p>26精讲第一天2（函数）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_9b1f8a77-e092-48b9-81e6-c7bc1542a201&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="4">
+                <img src="./NO-1.jpg" alt="工具4">
+                <p>26精讲第一天3（复合函数、反函数、函数特性）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_5e84bc4c-963c-454f-9394-2482bfe86f87&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="5">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第一天4（函数特性、极限上）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_c80ea1b1-f299-40bf-b8f8-e0ae21235962&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="6">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第二天1（极限下、两个重要极限）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_86867b2b-8bf7-4e22-bea1-2afe944353fe&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="7">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第二天2（连续、间断）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_ce226bc2-8442-4cbe-92f1-fd9f459bef09&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="8">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第二天3（导数概念、公式及四则运算）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_d42b4124-b185-4712-a6f1-180a696d8f89&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="9">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第二天4（复合函数求导、高阶导数）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_73e4b269-3a3f-44f7-b307-db910ccdeeb4&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="10">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第三天1（参变量函数求导、导数的几何意义）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_265cb1e2-4dd9-45ba-98dd-2cadeebc6aab&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="11">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第三天2（微分、微分中值定理）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_8ebe7d22-5864-463f-a5a7-e23bb0236217&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="12">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第三天3（洛必达法则）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b07ec45988cfddde59c06b441f_5d94697a-355f-43e1-a211-68e7c0c045c8&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="13">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第三天4（函数的单调性与极值）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_03bf3a5d-02d3-4439-a7a4-e65a97f42686&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="14">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第四天1（函数的凹凸性与拐点、最值上）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_037d7f63-f501-4828-9d19-7eb19a162113&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="15">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第四天2（最值下、不定积分的概念）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_e9258ba8-2467-4414-a118-20b5f93434e2&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="16">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第四天3（积分公式、凑微分）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_78e0ea1a-15b7-4199-90e7-e5bdafaf5d58&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="17">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第四天4（凑微分法、第二类换元法）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_6f45fe77-3cd0-41d4-8b8f-f95a5cff6788&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="18">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第五天1（三角换元、分部积分法）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_f215b764-201f-4529-b85f-50a200604f19&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="19">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第五天2（定积分的概念及性质、积分上限函数、牛顿莱布尼茨公式）</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_d483f673-c7f3-4e0d-8c09-1639340adbb9&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="20">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>26精讲第五天3（牛顿莱布尼茨公式、定积分的换元法）</p>
+            </div>
+        </a>
+        <!-- ... 其他工具区块保持类似结构 ... -->
+    </div>
+    <div class="content" id="shuxue2">
+        <!-- 确保 h1 单独占一行 -->
+        <h1 class="hh1" style="text-align: center; width: 100%;">知识胶囊</h1>
+        <!-- <h7 style="text-align: center; width: 100%;">探索马克思主义哲学</h7> -->
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_46fc1d24-ede7-4cb1-bc7a-b20700f8b2c7&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="1">
+                <img src="./NO-1.jpg" alt="工具6">
+                <p>考点1 函数的概念解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_30022224-75e8-4664-b08a-67df2b45edde&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="2">
+                <img src="./NO-1.jpg" alt="工具7">
+                <p>复合函数、反函数解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_e7799efb-55c2-4d5c-983a-0eb02c3d0fb9&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="3">
+                <img src="./NO-1.jpg" alt="工具8">
+                <p>函数特性、极限上解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_a885a1ec-654c-46cb-aa97-2003a6a4f933&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="4">
+                <img src="./NO-1.jpg" alt="工具9">
+                <p>知识胶囊：第二节极限解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_386af34f-73e4-4a20-afd7-63baabad1ca3&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="5">
+                <img src="./NO-1.jpg" alt="工具10">
+                <p>知识胶囊：连续、间断点解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_1ba677ad-b869-4f69-8c51-f7861b2b240a&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="6">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：导数概念、四则运算解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_4906af94-9139-48fe-a3c5-b329d291bddb&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="7">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：复合函数求导、高阶导数解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_f5a9faf1-cd35-4c83-b5c8-7413e2ade3dd&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="8">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：参变量函数求导、导数的几何意义解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_fa88d462-e106-4373-8e01-1e0a167c48fc&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="9">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：微分、微分中值定理解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_520b7f54-b26d-4d3e-960b-9654aedc086e&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="10">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>参变量函数即学即练6解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_a4974108-7e09-456a-a484-16e0b9b0c55b&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="11">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：函数的单调性与极值解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b03a853fffaf9722177614954b_98696375-71ed-40a1-bdf0-3c9914ce8e24&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="12">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：洛必达法则解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_65739b55-be17-4665-99ea-d862d654f4db&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="13">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：函数的凹凸性及拐点解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_6c9eb279-0323-46f5-a1f8-0ac676178f92&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="14">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：最值（数一）解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_c3cb3a48-9284-4a33-a1c9-0d6ffa29bf3f&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="15">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：凑微分法、第二类换元法解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_bb7e2964-4bab-4424-850c-98f01d7624d2&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="16">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：三角换元、分部积分解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_4f19eb5b-52f5-4a32-a833-e66a1b47ca0e&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="17">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：定积分的概念及性质、积分上限函数解析</p>
+            </div>
+        </a>
+        <a href="https://www.weiyun.com/document?fileId=RVxfTE1dZ25XVw==_4d1cc7b0e75eea1ac21fbe0df6b8066d_d2057a68-d58c-4495-a1bc-ad77b78ca23e&officeType=pdf&tdsourcetag=s_weiyun_file">
+            <div id="18">
+                <img src="./NO-1.jpg" alt="工具5">
+                <p>知识胶囊：牛顿莱布尼茨公式、定积分换元法解析</p>
+            </div>
+        </a>
+
+        <!-- ... 其他工具区块保持类似结构 ... -->
+    </div>
+    <script>
+        function scrollToDiv(elementId) {
+            const targetDiv = document.getElementById(elementId);
+            if (targetDiv) {
+                targetDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+
+</html>
