@@ -14,11 +14,12 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* 默认显示电脑端背景图 */
+            /* 默认显示电脑端背景图，设置背景固定 */
             background-image: url('https://u8848.wordpress.com/wp-content/uploads/2025/05/958fc680abac40e6986b6369b75cedcd-1.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            background-attachment: fixed; /* 添加背景固定属性 */
             color: var(--text-color);
             margin: 0;
             padding: 2rem;
@@ -33,6 +34,7 @@
         @media (max-width: 768px) {
             body {
                 background-image: url('./lanyangyang-1.png');
+                background-attachment: fixed; /* 添加背景固定属性 */
             }
         }
 
