@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年计算机联考一分一档表</title>
+    <style>
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #0056b3;
+            --text-color: #333;
+            --white: #fff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* 默认显示电脑端背景图 */
+            background-image: url('./hbzsbxx-1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 媒体查询，当屏幕宽度小于等于 768px 时，显示手机端背景图 */
+        @media (max-width: 768px) {
+            body {
+                background-image: url('./hbzsbxx-2.jpg');
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+            min-width: 250px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 为 div1 添加样式 */
+        .div1 {
+            background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+            border-radius: 30px; /* 圆角 */
+            padding: 2rem; /* 内边距 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影 */
+            width: 100%;
+            max-width: 600px; /* 最大宽度 */
+            box-sizing: border-box; /* 包含内边距和边框 */
+            /* 使用 flexbox 布局 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 透明菜单栏样式 */
+        .transparent-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255,00); 
+            padding: 0.5rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .back-btn-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 13px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .back-btn-inner:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .back-btn-inner i {
+            font-size: 18px;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 透明菜单栏 -->
+    <nav class="transparent-nav">
+        <a href="https://xiaomis7.github.io/su/" class="back-btn">
+            <button class="back-btn-inner">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </a>
+    </nav>
+    <div class="div1">
+        <h1>专升本相关指南</h1>
+        <a href="http://xxcx.f5.hebeea.edu.cn/html/ptzsb/index.html#" class="btn">河北省教育考试院</a>
+        <a href="http://www.zhuanshengbenwang.com/" class="btn">尚学/河北专升本网</a>
+        <a href="https://www.zjbks.com/" class="btn">河北专接本信息网</a>
+    </div>
+</body>
+</html>
